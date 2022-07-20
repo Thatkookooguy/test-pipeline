@@ -23,11 +23,11 @@ jobs:
           echo all changed files:
           echo $allchanged
           echo
-          onlymigrations="$(echo $allchanged | sed -E 's/ /\n/g' |grep \/migrations\/)"
+          onlymigrations="$(echo $allchanged | sed -E 's/ /\n/g' | grep \/migrations\/)"
           echo only migrations:
           echo $onlymigrations
           echo
-          formattedmessage="$(echo $onlymigrations | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g')"
+          formattedmessage="$(echo $onlymigrations | sed -E 's/ /\n/g' | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g')"
           echo formatted message:
           echo $formattedmessage
           echo 
