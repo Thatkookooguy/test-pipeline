@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Get all changed files
+        id: changed-files
+        run: |
+          git log --name-only --pretty="format:" ${{ github.event.before }}..${{ github.event.after }} | sort -u
       - name: 💬 Send Slack Message
         # if: steps.verify-changed-files.outputs.files_changed == 'true'
         id: slack
