@@ -21,7 +21,7 @@ jobs:
         run: |
           allchanged="$(git log --name-only --pretty="format:" ${{ github.event.before }}..${{ github.event.after }} | sort -u)"
           onlymigrations="$(echo $allchanged | grep /migrations/)"
-          formattedmessage="$(echo $onlymigrations | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g')"
+          formattedmessage="$(echo $onlymigrations | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g' | sed -n  'H;${x;s/\n/\\n/g;s/^\\n//;p;}')"
           echo "::set-output name=all-changed::$allchanged"
           echo "::set-output name=all-migrations::$onlymigrations"
           echo "::set-output name=formatted-message::$formattedmessage"
