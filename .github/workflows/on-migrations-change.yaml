@@ -26,4 +26,4 @@ jobs:
             }
         # Outputs: "New Migrations Added:\n===\n - new.txt\n - test_directory/new.txt"
         env:
-          SLACK_WEBHOOK_URL: https://hooks.slack.com/workflows/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
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_TEST }}
