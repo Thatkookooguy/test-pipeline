@@ -23,7 +23,7 @@ jobs:
           echo all changed files:
           echo $allchanged
           echo
-          onlymigrations="$(echo $allchanged | grep \/migrations\/)"
+          onlymigrations="$(echo $allchanged | sed -E 's/ /\n/g' |grep \/migrations\/)"
           echo only migrations:
           echo $onlymigrations
           echo
