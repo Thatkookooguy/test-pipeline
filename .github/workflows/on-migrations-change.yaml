@@ -20,7 +20,9 @@ jobs:
         id: changed-files
         run: |
           allchanged="$(git log --name-only --pretty="format:" ${{ github.event.before }}..${{ github.event.after }} | sort -u)"
+          onlymigrations="$(echo "$allchanged" | grep migrations')"
           echo "::set-output name=all-changed::$allchanged"
+          echo "::set-output name=all-migrations::$onlymigrations"
       - name: 💬 Send Slack Message
         # if: steps.verify-changed-files.outputs.files_changed == 'true'
         id: slack
