@@ -23,7 +23,7 @@ jobs:
           echo all changed files:
           echo $allchanged
           echo
-          onlymigrations="$(echo $allchanged | grep /migrations/)"
+          onlymigrations="$(echo $allchanged | grep \/migrations\/)"
           echo only migrations:
           echo $onlymigrations
           echo
@@ -33,7 +33,8 @@ jobs:
           echo 
           echo "::set-output name=all-changed::$allchanged"
           echo "::set-output name=all-migrations::$onlymigrations"
-          echo "::set-output name=formatted-message::${formattedmessage//$'\n'/'%0A'}"
+          echo "::set-output name=formatted-message::$formattedmessage"
+    # ${formattedmessage//$'\n'/'%0A'}"
       - name: test output
         run: echo ${{ steps.changed-files.outputs.formatted-message }}
       - name: 💬 Send Slack Message
