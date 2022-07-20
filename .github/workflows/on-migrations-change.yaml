@@ -20,11 +20,17 @@ jobs:
         id: changed-files
         run: |
           allchanged="$(git log --name-only --pretty="format:" ${{ github.event.before }}..${{ github.event.after }} | sort -u)"
+          echo all changed files:
           echo $allchanged
+          echo
           onlymigrations="$(echo $allchanged | grep /migrations/)"
+          echo only migrations:
           echo $onlymigrations
+          echo
           formattedmessage="$(echo $onlymigrations | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g')"
+          echo formatted message:
           echo $formattedmessage
+          echo 
           echo "::set-output name=all-changed::$allchanged"
           echo "::set-output name=all-migrations::$onlymigrations"
           echo "::set-output name=formatted-message::${formattedmessage//$'\n'/'%0A'}"
