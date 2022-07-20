@@ -27,7 +27,7 @@ jobs:
           echo only migrations:
           echo $onlymigrations
           echo
-          formattedmessage="$(echo $onlymigrations | sed -E 's/ /\n/g' | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g' | sed -n 'H;${x;s/\n/\\\n/g;s/^\\\n//;p;}')"
+          formattedmessage="$(echo $onlymigrations | sed -E 's/ /\n/g' | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g' sed '$!s/$/\\n/' file | tr -d '\n')"
           echo formatted message:
           echo $formattedmessage
           echo 
