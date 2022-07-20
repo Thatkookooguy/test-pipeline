@@ -23,9 +23,9 @@ jobs:
           onlymigrations="$(echo $allchanged | grep migrations)"
           echo "::set-output name=all-changed::$allchanged"
           echo "::set-output name=all-migrations::$onlymigrations"
-      - name: test step Outputs
-        run:
-          echo ${{ steps.changed-files.outputs.all-migrations }}
+      # - name: test step Outputs
+      #   run:
+      #     echo ${{ steps.changed-files.outputs.all-migrations }}
       - name: 💬 Send Slack Message
         # if: steps.verify-changed-files.outputs.files_changed == 'true'
         id: slack
@@ -34,7 +34,7 @@ jobs:
           payload: |
             {
               "title": " New Migrations Added",
-              "message": "${{ steps.verify-changed-files.outputs.changed_files }}"
+              "message": "${{ steps.changed-files.outputs.all-migrations }}"
             }
         # Outputs: "New Migrations Added:\n===\n - new.txt\n - test_directory/new.txt"
         env:
