@@ -27,13 +27,13 @@ jobs:
           echo only migrations:
           echo $onlymigrations
           echo
-          formattedmessage="$(echo $onlymigrations | sed -E 's/ /\n/g' | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g')"
+          formattedmessage="$(echo $onlymigrations | sed -E 's/ /\n/g' | sed -E 's/^(.*)\/migrations\/(.*)/\- \2/g' | sed -E 's/\n/, /g')"
           echo formatted message:
           echo $formattedmessage
           echo 
           echo "::set-output name=all-changed::$allchanged"
           echo "::set-output name=all-migrations::$onlymigrations"
-          echo "::set-output name=formatted-message::${formattedmessage//$'\n'/'%0A'}"
+          echo "::set-output name=formatted-message::$formattedmessage"
     # ${formattedmessage//$'\n'/'%0A'}"
       - name: test output
         run: echo ${{ steps.changed-files.outputs.formatted-message }}
