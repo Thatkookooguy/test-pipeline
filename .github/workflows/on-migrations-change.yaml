@@ -1,0 +1,29 @@
+name: 🦆 Update On New Migrations
+
+on:
+  push:
+    paths:
+    - '**/migrations/**.js'
+    - '**/migrations/**.ts'
+    branches:
+      - main
+
+jobs:
+  notify_on_migrations:
+    name: 🦆 Notify On New Migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 💬 Send Slack Message
+        # if: steps.verify-changed-files.outputs.files_changed == 'true'
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          payload: |
+            {
+              "title": " New Migrations Added",
+              "message": "${{ steps.verify-changed-files.outputs.changed_files }}"
+            }
+        # Outputs: "New Migrations Added:\n===\n - new.txt\n - test_directory/new.txt"
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/workflows/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
